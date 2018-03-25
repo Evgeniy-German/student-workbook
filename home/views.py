@@ -15,9 +15,9 @@ def registration(request):
         form = UserForm(request.POST)
         if form.is_valid():
             user = User.objects.create_user(username=form.cleaned_data['username'],
-                                            password=form.cleaned_data['password'],)
+                                            password=form.cleaned_data['password'], )
             user.save()
-            return HttpResponseRedirect("login")
+            return HttpResponseRedirect("/login")
     else:
         form = UserForm()
     return render(request, 'home/registration.html', {'form': form})
@@ -25,4 +25,3 @@ def registration(request):
 
 def main_page(request):
     return render(request, 'home/home.html')
-
