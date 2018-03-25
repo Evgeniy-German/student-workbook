@@ -12,5 +12,9 @@
             {{ form.password }}
         </div>
         <button type="submit" class="btn btn">Войти</button>
+    <a href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a>
+    <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+    <a href="{% url 'social:begin' 'vk-oauth2' %}">Login with Vk</a>
+    <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
     </form>
 {% endblock %}
