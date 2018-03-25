@@ -1,0 +1,16 @@
+{% extends 'home/wrapper.html' %}
+{% block body %}
+    <h1>Регистрация нового пользователя</h1>
+    <form method="POST" class="form-horizontal" action={% url 'registration' %}>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username" class="col-2">Имя пользователя: </label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label for="id_password" class="col-2">Пароль: </label>
+            {{ form.password }}
+        </div>
+        <button class="btn btn" type="submit"><p>Зарегестрировать</p></button>
+    </form>
+{% endblock %}

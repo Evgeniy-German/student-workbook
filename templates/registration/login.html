@@ -1,0 +1,16 @@
+{% extends 'home/wrapper.html' %}
+{% block body %}
+    <h2>Войдите в систему</h2>
+    <form class="form-horizontal" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username" class="col-2"><p>Имя пользователя: </p></label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label for="id_password" class="col-2"><p>Пароль: </p></label>
+            {{ form.password }}
+        </div>
+        <button type="submit" class="btn btn">Войти</button>
+    </form>
+{% endblock %}
