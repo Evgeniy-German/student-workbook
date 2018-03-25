@@ -1,0 +1,14 @@
+﻿#python virtual environment
+venv/
+
+#task
+task.docx
+
+#
+.idea/
+
+#_pycache_
+CourseProject/__pycache__/
+
+#bd
+course_project
