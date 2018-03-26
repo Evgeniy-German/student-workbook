@@ -9,8 +9,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
-    'home',
-    'social_django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -19,6 +17,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #my apps
     'Markdown',
+    'home',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -29,6 +29,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
@@ -68,8 +69,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'course_project',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'USER': 'dbuser',
+        'PASSWORD': '0000',
         'OPTIONS': {'charset': 'utf8'},
         # 'HOST': '127.0.0.1',
         # 'PORT': '3306',

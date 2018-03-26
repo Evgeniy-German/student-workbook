@@ -7,8 +7,9 @@ task.docx
 #
 .idea/
 
-#_pycache_
-CourseProject/__pycache__/
+# all _pycache_ files
+*.pyc
 
 #bd
 course_project
+
