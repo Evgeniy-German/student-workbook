@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'Markdown',
     'home',
     'social_django',
+    'Post',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
 
