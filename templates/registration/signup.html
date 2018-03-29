@@ -1,0 +1,98 @@
+{% extends 'home/wrapper.html' %}
+{% block body %}
+    <h2>Регистрация нового пользователя</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username" class="col-2">Имя пользователя: </label>
+            <div class="col-10">
+                <input type="text" style="width: 50%;" class="form-control" id="username" name="username"
+                       placeholder="Nickname">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_username" class="col-2">E-mail: </label>
+            <div class="col-10">
+                <input type="email" style="width: 50%;" class="form-control" id="email" name="email"
+                       placeholder="E-mail">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_password" class="col-2">Пароль: </label>
+            <div class="col-10">
+                <input type="password" style="width: 50%;" class="form-control" id="password1" name="password1"
+                       placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_password_again" class="col-2">Пароль еще раз: </label>
+            <div class="col-10">
+                <input type="password" style="width: 50%;" class="form-control" id="password2" name="password2"
+                       placeholder="Password again">
+            </div>
+        </div>
+        <button class="btn btn-success" type="submit"><p>Зарегестрироваться</p></button>
+    {% for field in form %}
+        {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+        {% endfor %}
+    {% endfor %}
+    </form>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#{% block body %}#}
+{#    <h1>Регистрация нового пользователя</h1>#}
+{#    <form method="POST" class="form-horizontal" action={% url 'registration' %}>#}
+{#        {% csrf_token %}#}
+{##}
+{#        <div class="form-group">#}
+{#            <label for="id_username" class="col-2">Имя пользователя: </label>#}
+{#            <div class="col-10">#}
+{#                <input type="text" style="width: 50%;" class="form-control" id="username" name="username" placeholder="Nickname">#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <label for="id_username" class="col-2">E-mail: </label>#}
+{#            <div class="col-10">#}
+{#                <input type="email" style="width: 50%;" class="form-control" id="email" name="email" placeholder="E-mail">#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <label for="id_password" class="col-2">Пароль: </label>#}
+{#            <div class="col-10">#}
+{#                <input type="password" style="width: 50%;" class="form-control" id="password1" name="password1" placeholder="Password">#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <label for="id_password_again" class="col-2">Пароль еще раз: </label>#}
+{#            <div class="col-10">#}
+{#                <input type="password" style="width: 50%;" class="form-control" id="password2" name="password2"#}
+{#                       placeholder="Password again">#}
+{#            </div>#}
+{#        </div>#}
+{#        <button class="btn btn-success" type="submit"><p>Зарегестрироваться</p></button>#}
+{#    </form>#}
+{#    {% if error == 'true' %}#}
+{#        <div>#}
+{#            <h2 style="color: red;">Вы неверно ввели данные. <br>Пожалуйста, проверьте корректность введенных данных#}
+{#            </h2>#}
+{#        </div>#}
+{#    {% elif error == 'user_exists' %}#}
+{#        <div>#}
+{#            <h2 style="color: red;">Такой пользователь уже существует</h2>#}
+{#        </div>#}
+{#    {% endif %}#}
+{#{% endblock %}#}

@@ -15,7 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #my apps
+    # my apps
     'Markdown',
     'home',
     'social_django',
@@ -101,7 +101,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 LOGIN_URL = 'login'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Minsk'
 
 USE_I18N = True
 
@@ -110,6 +110,9 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 SOCIAL_AUTH_TWITTER_KEY = 'jTmOhVwEvy6qOD561v9TpTMh2'
 SOCIAL_AUTH_TWITTER_SECRET = '5bcBsdBLEUK2L3uxjfu1TVUa7yKHxrnZEc4DpE8AsHKa1gB6s5'
@@ -122,3 +125,10 @@ SOCIAL_AUTH_VK_OAUTH2_SECRET = 'sZdkFiTsSW1yU3cahCwe'
 
 SOCIAL_AUTH_GITHUB_KEY = '208ed54b538dcb12e384'
 SOCIAL_AUTH_GITHUB_SECRET = 'bcef8734550b298a72fb86e349f8b44294597b22'
+
+# email
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'infotaskitra@gmail.com'
+EMAIL_HOST_PASSWORD = 'rootroot'
+EMAIL_PORT = 587

@@ -1,0 +1,9 @@
+{% extends 'home/wrapper.html' %}
+
+{% block body %}
+    {% if error == "None" %}
+    <h3 style="color: green">{{ complete }} </h3>
+    {% else %}
+     <h3 style="color: red">{{ error }} </h3>
+    {% endif %}
+{% endblock %}

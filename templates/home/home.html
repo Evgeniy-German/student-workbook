@@ -1,4 +1,17 @@
 {% extends 'home/wrapper.html' %}
 {% block body %}
 
+    {% for post in  posts %}
+        <div style="margin-left: 10%">
+            <h3><a href="/{{ post.id }}">{{ post.post_title }}</a></h3>
+            <textarea rows="3" maxlength="40" disabled="disabled"
+                      style="resize: none;width: 70%; overflow:hidden;">{{ post.post_text }}</textarea>
+            <h6>{{ post.post_author }}<br>
+                {{ post.post_date }}<br>
+                {{ post.post_stars }}
+            </h6>
+        </div>
+        <hr>
+    {% endfor %}
+
 {% endblock %}

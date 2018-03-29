@@ -1,32 +1,27 @@
-from datetime import datetime
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
 
 class Post(models.Model):
-    class Meta():
+    class Meta:
         db_table = 'post'
 
     post_title = models.CharField(max_length = 100)
     post_text = models.TextField()
-    post_date = models.DateField()
+    post_date = models.DateTimeField(auto_now_add = True)
     post_stars = models.IntegerField(default = 0)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.post_date = datetime.now()
+    post_short_description = models.CharField(max_length = 100)
+    post_author = models.ForeignKey(User, on_delete = models.CASCADE)
 
 
 class Comments(models.Model):
-    class Meta():
+    class Meta:
         db_table = 'comments'
 
     comments_text = models.TextField()
-    comments_date = models.DateField()
+    comments_date = models.DateTimeField(auto_now_add = True)
     comments_parent = models.IntegerField(default = 0)
     comments_post = models.ForeignKey(Post, on_delete = models.CASCADE)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.comments_date = datetime.now()
+    comments_author = models.ForeignKey(User, on_delete = models.CASCADE)

@@ -1,0 +1,27 @@
+{% extends 'home/wrapper.html' %}
+{% block body %}
+    <div>
+        <h3>{{ post.post_title }}</h3>
+        <textarea rows="8" disabled="disabled" style = "width: 70%;">{{ post.post_text }}</textarea>
+        <h6>{{ post.post_author }}<br>
+            {{ post.post_date }}<br>
+            {{ post.post_stars }}
+        </h6>
+    </div>
+    <h5>
+        <hr>
+        ↓ Комментарии ↓
+        <hr>
+    </h5>
+    {% for comment in comments %}
+        <div>
+            <textarea disabled="disabled" rows="5" style="width: 70%">{{ comment.comments_text }}</textarea>
+            <h6>
+                {{ comment.comments_author }}<br>
+                {{ comment.comments_date }}
+            </h6>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}

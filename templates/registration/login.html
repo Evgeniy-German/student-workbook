@@ -1,22 +1,31 @@
 {% extends 'home/wrapper.html' %}
+
 {% block body %}
     <h2>Войдите в систему</h2>
-    <form class="form-horizontal" method="post">
+    <form method="post">
         {% csrf_token %}
         <div class="form-group">
-            <label for="id_username" class="col-2"><p>Имя пользователя: </p></label>
-            {{ form.username }}
+            <label for="id_username" class="col-2"><p>Имя пользователя: </p></label><br>
+            <div class="col-10">
+                <input type="text" style="width: 50%;" class="form-control" id="username" name="username"
+                       placeholder="Nickname">
+            </div>
+
         </div>
         <div class="form-group">
-            <label for="id_password" class="col-2"><p>Пароль: </p></label>
-            {{ form.password }}
+            <label for="id_password" class="col-2"><p>Пароль: </p></label><br>
+            <div class="col-10">
+                <input type="password" style="width: 50%;" class="form-control" id="password1" name="password"
+                       placeholder="Password">
+            </div>
         </div>
         <button type="submit" class="btn btn-success">Войти</button>
     </form>
-    <div class="col-1" style="margin-top: 50px;">
-        <a href="{% url 'social:begin' 'twitter' %}">Twitter</a>
-        <a href="{% url 'social:begin' 'facebook' %}">Facebook</a>
-        <a href="{% url 'social:begin' 'vk-oauth2' %}">Vk</a>
-        {#    <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>#}
+    <div style="margin-top: 50px;">
+        <a class="btn btn-social-icon btn-twitter" href="{% url 'social:begin' 'twitter' %}"><span
+                class="fa fa-twitter"></span></a>
+        <a class="btn btn-social-icon btn-facebook" href="{% url 'social:begin' 'facebook' %}"><span
+                class="fa fa-facebook"></span></a>
+        <a class="btn btn-social-icon btn-vk" href="{% url 'social:begin' 'vk-oauth2' %}"><span class="fa fa-vk"></span></a>
     </div>
 {% endblock %}
