@@ -16,10 +16,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my apps
-    'Markdown',
     'home',
     'social_django',
     'Post',
+    'django_summernote',
+
 ]
 
 MIDDLEWARE = [
@@ -113,6 +114,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SOCIAL_AUTH_TWITTER_KEY = 'jTmOhVwEvy6qOD561v9TpTMh2'
 SOCIAL_AUTH_TWITTER_SECRET = '5bcBsdBLEUK2L3uxjfu1TVUa7yKHxrnZEc4DpE8AsHKa1gB6s5'

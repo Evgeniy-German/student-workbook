@@ -11,4 +11,5 @@ urlpatterns = [
     path('logout/', auth_views.logout, name='logout'),
     path('signup/', views.signup, name='signup'),
     path(r'activate/<str:uidb64>/<str:token>/', views.activate, name='activate'),
+    path('summernote/', include('django_summernote.urls')),
 ]
