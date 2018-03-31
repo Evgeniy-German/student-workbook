@@ -12,12 +12,7 @@ from .tokens import account_activation_token
 
 
 def main_page(request):
-    return render(request, 'home/home.html', {'posts': Post.objects.all()})
-
-
-def post(request, post_id):
-    return render(request, 'home/post.html', {'post': Post.objects.get(id=post_id),
-                                              'comments': Comments.objects.filter(comments_post_id=post_id)})
+    return render(request, 'home/home.html', {'posts': reversed(Post.objects.all())})
 
 
 def signup(request):

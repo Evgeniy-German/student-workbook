@@ -16,4 +16,6 @@ course_project
 #media
 media/
 
+#migrations
+migrations/
 

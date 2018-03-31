@@ -7,8 +7,8 @@ from django_summernote.admin import SummernoteModelAdmin
 class PostInline(admin.StackedInline):
     model = Comments
     extra = 1
-    exclude = ('comments_date',)
-    readonly_fields = ('comments_date',)
+    exclude = ('comments_date','comments_likes')
+    readonly_fields = ('comments_date','comments_likes')
 
 
 class PostAdmin(SummernoteModelAdmin):

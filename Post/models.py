@@ -23,5 +23,6 @@ class Comments(models.Model):
     comments_text = models.TextField()
     comments_date = models.DateTimeField(auto_now_add=True)
     comments_parent = models.IntegerField(default=0)
+    comments_likes = models.ManyToManyField(User, related_name='like')
     comments_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comments_author = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -19,7 +19,10 @@
             <h6>
                 {{ comment.comments_author }}<br>
                 {{ comment.comments_date }}
+
             </h6>
+            <a href="/{{ post.id }}/{{ comment.id }}/addlike/" class="btn btn-default glyphicon glyphicon-thumbs-up" style="color: blue"></a>
+        {{ comment.comments_likes.count }}
         </div>
     {% endfor %}
 
