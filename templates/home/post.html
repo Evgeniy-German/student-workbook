@@ -1,8 +1,11 @@
 {% extends 'home/wrapper.html' %}
+
 {% block body %}
     <div>
         <h3>{{ post.post_title }}</h3>
-        <textarea rows="8" disabled="disabled" style = "width: 70%;">{{ post.post_text }}</textarea>
+        <div class="summernote">
+            {{ form.post_text|safe }}
+        </div>
         <h6>{{ post.post_author }}<br>
             {{ post.post_date }}<br>
             {{ post.post_stars }}
@@ -19,12 +22,14 @@
             <h6>
                 {{ comment.comments_author }}<br>
                 {{ comment.comments_date }}
-
             </h6>
-            <a href="/{{ post.id }}/{{ comment.id }}/addlike/" class="btn btn-default glyphicon glyphicon-thumbs-up" style="color: blue"></a>
-        {{ comment.comments_likes.count }}
+            <a href="/{{ post.id }}/{{ comment.id }}/addlike/" class="btn btn-default glyphicon glyphicon-thumbs-up"
+               style="color: blue"></a>
+            {{ comment.comments_likes.count }}
+            <br>
+            <hr>
         </div>
     {% endfor %}
 
-
 {% endblock %}
+

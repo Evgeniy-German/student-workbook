@@ -1,14 +1,15 @@
 from django.contrib import admin
-from .models import Post, Comments
 from django_summernote.admin import SummernoteModelAdmin
+
+from .models import Post, Comments
 
 
 # Register your models here.
 class PostInline(admin.StackedInline):
     model = Comments
     extra = 1
-    exclude = ('comments_date','comments_likes')
-    readonly_fields = ('comments_date','comments_likes')
+    exclude = ('comments_date', 'comments_likes')
+    readonly_fields = ('comments_date', 'comments_likes')
 
 
 class PostAdmin(SummernoteModelAdmin):

@@ -1,0 +1,15 @@
+{% extends 'home/wrapper.html' %}
+
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+
+        <h4>Заголовок {{ form.post_title }}</h4>
+        <h4>Краткое описание {{ form.post_short_description }}</h4>
+        <p> {{ form.post_text|safe }}</p>
+        <button class="btn btn-success" type="submit">Сохранить</button>
+        {% if good_news == 'True' %}
+            <text class="text-success" style="margin-left: 20px;">Успешно сохранено</text>
+        {% endif %}
+    </form>
+{% endblock %}

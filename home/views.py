@@ -1,12 +1,11 @@
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.template.loader import render_to_string
 
-from Post.models import Post, Comments
+from Post.models import Post
 from .forms import SignupForm
 from .tokens import account_activation_token
 

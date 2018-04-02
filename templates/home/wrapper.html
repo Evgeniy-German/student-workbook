@@ -19,14 +19,23 @@
     background: #4e555b;">
 
     {% if not user.is_authenticated %}
-        <a href="/" class="btn"><p>Главная</p></a><br>
-        <a href="/signup" class="btn"><p>Регистрация</p></a><br>
-        <a href="/login" class="btn"><p>Войти</p></a>
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="/" class="btn" style="color: #1ab7ea;">Главная</a></li>
+            <br>
+            <li><a href="/signup" class="btn" style="color: #1ab7ea;">Регистрация</a></li>
+            <br>
+            <li><a href="/login" class="btn" style="color: #1ab7ea;">Войти</a></li>
+        </ul>
     {% elif user.is_authenticated %}
-        <img src="../../static/img/avatar.PNG" class="img-circle" style="width: 35%; margin-left: 5%;margin-top: 5%;">
-        <a class="btn" style="color: orange"><p>{{ user.username }}</p></a><br>
-        <a href="/" class="btn"><p>Главная</p></a><br>
-        <a href="/logout" class="btn">Выйти из аккаунта</a>
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="/MyProfile"><img src="/static/img/avatar.PNG" class="img-circle"
+                                          style="width: 35%;margin-left: 33%;margin-top: 5%;"></a></li>
+            <li><a href="/MyProfile" class="btn" style="color: orange">{{ user.username }}</a></li>
+            <br>
+            <li><a href="/" class="btn" style="color: #1ab7ea;">Главная</a></li>
+            <br>
+            <li><a href="/logout" class="btn" style="color: #1ab7ea;">Выйти из аккаунта</a></li>
+        </ul>
     {% endif %}
 </div>
 

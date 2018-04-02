@@ -1,0 +1,22 @@
+{% extends 'home/wrapper.html' %}
+
+{% block body %}
+    <a href="/MyProfile/create/" class="btn btn-default glyphicon glyphicon-pencil"
+       style="margin-left:-4% ;margin-top: 1%;background-color: lightgreen;"></a>
+    <hr>
+    {% for post in posts %}
+        <div style="margin-left: 10%">
+            <h3>
+                <a href="/MyProfile/{{ post.id }}/edit/" class="btn btn-default glyphicon glyphicon-wrench"
+                   style="margin-left:-4.2% ;background-color: orange;"></a>
+                {{ post.post_title }}
+            </h3>
+            <h4>{{ post.post_short_description }}</h4>
+            <h6>{{ post.post_author }}<br>
+                {{ post.post_date }}<br>
+                {{ post.post_stars }}
+            </h6>
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

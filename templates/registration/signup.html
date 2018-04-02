@@ -32,11 +32,11 @@
             </div>
         </div>
         <button class="btn btn-success" type="submit"><p>Зарегестрироваться</p></button>
-    {% for field in form %}
-        {% for error in field.errors %}
-            <p style="color: red">{{ error }}</p>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
     </form>
 {% endblock %}
 
