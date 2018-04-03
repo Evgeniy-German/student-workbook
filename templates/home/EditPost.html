@@ -8,6 +8,11 @@
         <h4>Краткое описание {{ form.post_short_description }}</h4>
         <p> {{ form.post_text|safe }}</p>
         <button class="btn btn-success" type="submit">Сохранить</button>
+        {% if not user.is_authenticated %}
+            <text class="text-danger" style="margin-left: 20px;">Необходимо зарегистрироваться, чтобы создавать
+                конспекты
+            </text>
+        {% endif %}
         {% if good_news == 'True' %}
             <text class="text-success" style="margin-left: 20px;">Успешно сохранено</text>
         {% endif %}

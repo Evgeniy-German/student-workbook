@@ -2,15 +2,23 @@
 {% load ratings %}
 
 {% block body %}
+    <link rel="stylesheet" href="/static/MyModal.css">
+
     <a href="/MyProfile/create/" class="btn btn-default glyphicon glyphicon-pencil"
-       style="margin-left:-4% ;margin-top: 1%;background-color: lightgreen;"></a>
+       style="margin-left:-4% ;margin-top: 1%;background-color: limegreen;"></a>
     <hr>
+
     {% for post in posts %}
         <div style="margin-left: 10%">
-            <h3>
+            <form method="post" action="">
+                {% csrf_token %}
+                <button type="submit" id="{{ post.id }}" class="btn btn-danger glyphicon glyphicon-minus"
+                        style="background-color: #d43f3a;" value="{{ post.id }}" name="delete_post"></button>
                 <a href="/MyProfile/{{ post.id }}/edit/" class="btn btn-default glyphicon glyphicon-wrench"
-                   style="margin-left:-4.2% ;background-color: orange;"></a>
-                {{ post.post_title }}
+                   style=";background-color: orange;"></a>
+            </form>
+            <h3>
+                <a href="/{{ post.id }}">{{ post.post_title }}</a>
             </h3>
             <h4>{{ post.post_short_description }}</h4>
             <h6>{{ post.post_author }}<br>

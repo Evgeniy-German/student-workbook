@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 
 from Post.forms import PostForm
 from Post.models import Post, Comments
@@ -35,7 +35,9 @@ def addlike(request, post_id, comment_id):
 
 
 def my_profile(request):
-    if request.user.is_authenticated:
+    if request.method == 'POST':
+        return delete_post(request)
+    elif request.user.is_authenticated:
         posts = Post.objects.filter(post_author=request.user)
         return render(request, 'home/MyProfile.html', {'posts': reversed(posts)})
     else:
@@ -73,3 +75,13 @@ def edit_post(request, post_id):
         return render(request, 'home/EditPost.html', {'form': form})
     else:
         return HttpResponseRedirect('/')
+
+
+def delete_post(request):
+    user = request.user
+    post = get_object_or_404(Post, id=request.POST['delete_post'])
+    if user.is_authenticated and post.post_author == user:
+        post.delete()
+        return HttpResponseRedirect('/MyProfile/')
+    else:
+        return render(request, 'home/home.html')
