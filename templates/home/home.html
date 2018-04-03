@@ -1,4 +1,7 @@
 {% extends 'home/wrapper.html' %}
+{% load ratings %}
+
+
 {% block body %}
 
     {% for post in  posts %}
@@ -7,8 +10,8 @@
             <h4>{{ post.post_short_description }}</h4>
             <h6>{{ post.post_author }}<br>
                 {{ post.post_date }}<br>
-                {{ post.post_stars }}
             </h6>
+            {% ratings post %}
         </div>
         <hr>
     {% endfor %}

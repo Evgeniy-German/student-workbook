@@ -10,12 +10,9 @@ from Post.models import Post, Comments
 
 
 def post(request, post_id):
-    try:
-        post = Post.objects.get(id=post_id)
-        comments = Comments.objects.filter(comments_post_id=post_id)
-        form = PostForm(instance=post)
-    except ObjectDoesNotExist:
-        raise Http404
+    post = get_object_or_404(Post, id=post_id)
+    comments = Comments.objects.filter(comments_post_id=post_id)
+    form = PostForm(instance=post)
     return render(request, 'home/post.html', {'post': post,
                                               'comments': comments,
                                               'form': form}

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from star_ratings.models import Rating
 
 
 # Create your models here.
@@ -12,7 +13,6 @@ class Post(models.Model):
     post_title = models.CharField(max_length=100)
     post_text = models.TextField()
     post_date = models.DateTimeField(auto_now_add=True)
-    post_stars = models.IntegerField(default=0)
     post_short_description = models.CharField(max_length=100)
     post_author = models.ForeignKey(User, on_delete=models.CASCADE)
 

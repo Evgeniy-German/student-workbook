@@ -1,6 +1,9 @@
 {% extends 'home/wrapper.html' %}
+{% load ratings %}
 
 {% block body %}
+
+
     <div>
         <h3>{{ post.post_title }}</h3>
         <div class="summernote">
@@ -8,8 +11,8 @@
         </div>
         <h6>{{ post.post_author }}<br>
             {{ post.post_date }}<br>
-            {{ post.post_stars }}
         </h6>
+        {% ratings post %}
     </div>
     <h5>
         <hr>

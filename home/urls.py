@@ -21,6 +21,8 @@ urlpatterns = [
     path(r'activate/<str:uidb64>/<str:token>/', views.activate, name='activate'),
 
     path('summernote/', include('django_summernote.urls')),
+
+    path(r'ratings/', include('star_ratings.urls', namespace='ratings')),
 ]
 
 if settings.DEBUG:
