@@ -99,7 +99,7 @@ def add_comment(request):
         comment.comments_text = text
         comment.save()
         answer_dict = {'text': comment.comments_text, 'author': user.username, 'date': comment.comments_date,
-                       'post_id': post_id, 'comments_id': comment.id, 'coments_like': comment.comments_likes.count()}
+                       'post_id': post_id, 'comments_id': comment.id, 'comments_likes': comment.comments_likes.count()}
         return JsonResponse(answer_dict)
     elif Comments.objects.filter(comments_post_id=post_id).count() != count:
         comment = Comments.objects.filter(comments_post_id=post_id)
@@ -107,7 +107,7 @@ def add_comment(request):
         comment = comment[0]
         user = comment.comments_author
         answer_dict = {'text': comment.comments_text, 'author': user.username, 'date': comment.comments_date,
-                       'post_id': post_id, 'comments_id': comment.id, 'coments_like': comment.comments_likes.count()}
+                       'post_id': post_id, 'comments_id': comment.id, 'comments_likes': comment.comments_likes.count()}
         return JsonResponse(answer_dict)
     else:
         return JsonResponse({'text': '', })

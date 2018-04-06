@@ -54,7 +54,6 @@
     <script>
         $(document).ready(function () {
                 function add_comments(flag) {
-                    console.log('add');
                     var url_ = "/add_comment/";
                     var csrf_token = $('#add [name="csrfmiddlewaretoken"]').val();
                     var text = flag;
@@ -72,17 +71,18 @@
                         success: function (response) {
                             if (response.text != '') {
                                 $('div.load').append('<div class="comment"><textarea disabled="disabled" rows="5" style="width: 70%">' + response.text + '</textarea><h6>' + response.author + '<br>' + response.date + '</h6>' + '  <a href="/' + response.post_id + '/' + response.comments_id + '/addlike/" class="btn btn-default glyphicon glyphicon-thumbs-up"\n' +
-                                    'style="color: blue"></a><hr></div>');
+                                    'style="color: blue"></a>'+response.comments_likes+'<hr></div>');
                             }
                         }
                     });
                 }
 
                 $("#addcomment").click(function () {
-                    add_comments($('#text').val())
+                    add_comments($('#text').val());
+                    $("#text").val("");
                 });
 
-                setInterval(add_comments, 4000, '');
+                setInterval(add_comments, 5000, '');
             }
         );
 
