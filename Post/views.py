@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, render_to_response
+from django.http import Http404, HttpResponseRedirect, JsonResponse
+from django.shortcuts import render, get_object_or_404
 
 from Post.forms import PostForm
 from Post.models import Post, Comments
@@ -85,3 +85,29 @@ def delete_post(request):
         return HttpResponseRedirect('/MyProfile/')
     else:
         return render(request, 'home/home.html')
+
+
+def add_comment(request):
+    text = request.POST['text']
+    count = int(request.POST['count'])
+    post_id = request.POST['post_id']
+    if text:
+        user = request.user
+        comment = Comments()
+        comment.comments_author = user
+        comment.comments_post_id = post_id
+        comment.comments_text = text
+        comment.save()
+        answer_dict = {'text': comment.comments_text, 'author': user.username, 'date': comment.comments_date,
+                       'post_id': post_id, 'comments_id': comment.id, 'coments_like': comment.comments_likes.count()}
+        return JsonResponse(answer_dict)
+    elif Comments.objects.filter(comments_post_id=post_id).count() != count:
+        comment = Comments.objects.filter(comments_post_id=post_id)
+        comment = comment[count:count + 1]
+        comment = comment[0]
+        user = comment.comments_author
+        answer_dict = {'text': comment.comments_text, 'author': user.username, 'date': comment.comments_date,
+                       'post_id': post_id, 'comments_id': comment.id, 'coments_like': comment.comments_likes.count()}
+        return JsonResponse(answer_dict)
+    else:
+        return JsonResponse({'text': '', })

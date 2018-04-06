@@ -8,11 +8,12 @@ from . import views
 
 urlpatterns = [
     path('', views.main_page),
-    path(r'<int:post_id>', post_view.post),
+    path(r'<int:post_id>/', post_view.post),
     path(r'<int:post_id>/<int:comment_id>/addlike/', post_view.addlike),
     path('MyProfile/', post_view.my_profile),
     path(r'MyProfile/<int:post_id>/edit/', post_view.edit_post),
     path(r'MyProfile/create/', post_view.create_post),
+    path(r'add_comment/', post_view.add_comment, name='add_comment'),
 
     path('oauth/', include('social_django.urls', namespace='social')),
     path('login/', auth_views.login, name='login'),

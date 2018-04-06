@@ -4,6 +4,7 @@
 {% block body %}
 
 
+
     <div>
         <h3>{{ post.post_title }}</h3>
         <div class="summernote">
@@ -17,22 +18,75 @@
     <h5>
         <hr>
         ↓ Комментарии ↓
+
         <hr>
     </h5>
-    {% for comment in comments %}
-        <div>
-            <textarea disabled="disabled" rows="5" style="width: 70%">{{ comment.comments_text }}</textarea>
-            <h6>
-                {{ comment.comments_author }}<br>
-                {{ comment.comments_date }}
-            </h6>
-            <a href="/{{ post.id }}/{{ comment.id }}/addlike/" class="btn btn-default glyphicon glyphicon-thumbs-up"
-               style="color: blue"></a>
-            {{ comment.comments_likes.count }}
-            <br>
-            <hr>
-        </div>
-    {% endfor %}
+    <div class="load" id="load">
+        {% for comment in comments %}
+            <div class="comment">
+                <textarea disabled="disabled" rows="5" style="width: 70%">{{ comment.comments_text }}</textarea>
+                <h6>
+                    {{ comment.comments_author }}<br>
+                    {{ comment.comments_date }}
+                </h6>
+                <a href="/{{ post.id }}/{{ comment.id }}/addlike/" class="btn btn-default glyphicon glyphicon-thumbs-up"
+                   style="color: blue"></a>
+                {{ comment.comments_likes.count }}
+                <br>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+    {% if user.is_authenticated %}
+        <form id="add">
+            {% csrf_token %}
+
+
+            <textarea id="text" rows="5" style="width: 70%"></textarea><br>
+            <button type="button" id="addcomment" class="btn glyphicon glyphicon-send"
+                    style="margin-left: 65%;background-color: #46b8da; width:5%;"></button>
+
+        </form>
+    {% endif %}
+
+    <footer style="height: 250px"></footer>
+
+    <script>
+        $(document).ready(function () {
+                function add_comments(flag) {
+                    console.log('add');
+                    var url_ = "/add_comment/";
+                    var csrf_token = $('#add [name="csrfmiddlewaretoken"]').val();
+                    var text = flag;
+                    var post_id = {{ post.id }};
+                    var data_ = {
+                        'text': text,
+                        'csrfmiddlewaretoken': csrf_token,
+                        'post_id': post_id,
+                        'count': $('.comment').length,
+                    };
+                    $.ajax({
+                        url: url_,
+                        type: "POST",
+                        data: data_,
+                        success: function (response) {
+                            if (response.text != '') {
+                                $('div.load').append('<div class="comment"><textarea disabled="disabled" rows="5" style="width: 70%">' + response.text + '</textarea><h6>' + response.author + '<br>' + response.date + '</h6>' + '  <a href="/' + response.post_id + '/' + response.comments_id + '/addlike/" class="btn btn-default glyphicon glyphicon-thumbs-up"\n' +
+                                    'style="color: blue"></a><hr></div>');
+                            }
+                        }
+                    });
+                }
+
+                $("#addcomment").click(function () {
+                    add_comments($('#text').val())
+                });
+
+                setInterval(add_comments, 4000, '');
+            }
+        );
+
+    </script>
 
 {% endblock %}
 
