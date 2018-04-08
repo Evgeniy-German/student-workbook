@@ -26,6 +26,9 @@ class Post(models.Model):
     def __str__(self):
         return self.post_title
 
+    def get_absolute_url(self):
+        return "/%i/" % self.id
+
 
 class Comments(models.Model):
     class Meta:
@@ -37,3 +40,6 @@ class Comments(models.Model):
     comments_likes = models.ManyToManyField(User, related_name='like')
     comments_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comments_author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return "/%i/" % self.comments_post_id

@@ -1,6 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.utils.datastructures import MultiValueDictKeyError
 
 from Post.forms import PostForm
 from Post.models import Post, Comments
@@ -133,3 +134,30 @@ def add_comment(request):
         return JsonResponse(answer_dict)
     else:
         return JsonResponse({'text': '', })
+
+
+# def show_posts_by_rating(request):
+#     return render(request, 'home/MyProfile.html', {'posts': Post.objects.filter(ratings__isnull=False).order_by(
+#         '-ratings__average').filter(post_author=request.user), })
+#
+#
+# def show_posts_by_date(request):
+#     return render(request, 'home/MyProfile.html',
+#                   {'posts': Post.objects.all().order_by('post_date').filter(post_author=request.user), })
+
+def sort(request):
+    if request.method == 'POST':
+        if request.POST['sort'] == 'date':
+            posts = Post.objects.all().order_by('post_date').filter(post_author=request.user)
+        else:
+            posts = Post.objects.filter(ratings__isnull=False).order_by(
+                '-ratings__average').filter(post_author=request.user)
+        try:
+            if request.POST['inverse'] == 'true':
+                posts = reversed(posts)
+        except MultiValueDictKeyError:
+            pass
+        finally:
+            return render(request, 'home/MyProfile.html', {'posts': posts})
+    else:
+        return render(request, 'home/MyProfile.html')

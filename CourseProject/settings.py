@@ -16,6 +16,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my apps
+    'haystack',
+    'elasticsearch',
     'home',
     'social_django',
     'Post',

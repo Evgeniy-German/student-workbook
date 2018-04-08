@@ -22,11 +22,15 @@ urlpatterns = [
     path('logout/', auth_views.logout, name='logout'),
     path('signup/', views.signup, name='signup'),
     path(r'activate/<str:uidb64>/<str:token>/', views.activate, name='activate'),
+    path('sort/', post_view.sort, name='sort'),
+    # path('show_posts_by_rating/', post_view.show_posts_by_rating, name='show_posts_by_rating'),
+    # path('show_posts_by_date/', post_view.show_posts_by_date, name='show_posts_by_date'),
 
     path('summernote/', include('django_summernote.urls')),
 
     path(r'ratings/', include('star_ratings.urls', namespace='ratings')),
 
+    path('search/', include('haystack.urls')),
 ]
 
 if settings.DEBUG:
