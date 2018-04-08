@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'Post',
     'django_summernote',
     'star_ratings',
+    'Tags',
 
 ]
 
@@ -135,3 +136,15 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'infotaskitra@gmail.com'
 EMAIL_HOST_PASSWORD = 'rootroot'
 EMAIL_PORT = 587
+
+#
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

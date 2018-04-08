@@ -7,11 +7,14 @@
 
     <div>
         <h3>{{ post.post_title }}</h3>
+        <h4>{{ post.post_speciality_number }}</h4>
         <div class="summernote">
             {{ form.post_text|safe }}
         </div>
         <h6>{{ post.post_author }}<br>
             {{ post.post_date }}<br>
+            {{ form.tags }}<br>
+
         </h6>
         {% ratings post %}
     </div>
@@ -49,8 +52,6 @@
         </form>
     {% endif %}
 
-    <footer style="height: 250px"></footer>
-
     <script>
         $(document).ready(function () {
                 function add_comments(flag) {
@@ -71,7 +72,7 @@
                         success: function (response) {
                             if (response.text != '') {
                                 $('div.load').append('<div class="comment"><textarea disabled="disabled" rows="5" style="width: 70%">' + response.text + '</textarea><h6>' + response.author + '<br>' + response.date + '</h6>' + '  <a href="/' + response.post_id + '/' + response.comments_id + '/addlike/" class="btn btn-default glyphicon glyphicon-thumbs-up"\n' +
-                                    'style="color: blue"></a>'+response.comments_likes+'<hr></div>');
+                                    'style="color: blue"></a>' + response.comments_likes + '<hr></div>');
                             }
                         }
                     });

@@ -13,8 +13,8 @@ class PostInline(admin.StackedInline):
 
 
 class PostAdmin(SummernoteModelAdmin):
-    exclude = ('post_date',)
-    readonly_fields = ('post_date',)
+    exclude = ('post_date', 'post_date_update', )
+    readonly_fields = ('post_date', 'post_date_update',)
     inlines = [PostInline]
 
 

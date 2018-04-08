@@ -8,10 +8,14 @@ from django.template.loader import render_to_string
 from Post.models import Post
 from .forms import SignupForm
 from .tokens import account_activation_token
+from Tags.models import Tag
 
 
 def main_page(request):
-    return render(request, 'home/home.html', {'posts': reversed(Post.objects.all())})
+    return render(request, 'home/home.html', {'posts': reversed(Post.objects.all().order_by('post_date_update')),
+                                              'sorted_posts': Post.objects.filter(ratings__isnull=False).order_by(
+                                                  '-ratings__average'),
+                                              'tags': Tag.objects.all()})
 
 
 def signup(request):

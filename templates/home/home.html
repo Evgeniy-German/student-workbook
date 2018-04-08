@@ -3,17 +3,49 @@
 
 
 {% block body %}
+    <table width="100%">
+        <td style="width: 40%;">
+            <div style="margin-left: 5%;">
+                <h2 style="color: mediumpurple;">Все конспекты</h2>
+                {% for post in  posts %}
+                    <div>
+                        <h3><a href="/{{ post.id }}">{{ post.post_title }}</a></h3>
+                        <h4>{{ post.post_short_description }}</h4>
+                        <h6>{{ post.post_author }}<br>
+                            Добавлен: {{ post.post_date }}<br>
+                            Изменен: {{ post.post_date_update }}<br>
+                        </h6>
+                        {% ratings post %}
+                        <hr>
+                    </div>
 
-    {% for post in  posts %}
-        <div style="margin-left: 10%">
-            <h3><a href="/{{ post.id }}">{{ post.post_title }}</a></h3>
-            <h4>{{ post.post_short_description }}</h4>
-            <h6>{{ post.post_author }}<br>
-                {{ post.post_date }}<br>
-            </h6>
-            {% ratings post %}
-        </div>
-        <hr>
-    {% endfor %}
-
+                {% endfor %}
+            </div>
+        </td>
+        <td style="width: 40%;">
+            <div>
+                <h2 style="color: mediumpurple;">Самые рейтинговые</h2>
+                {% for sorted_post in sorted_posts %}
+                    <div>
+                        <h3><a href="/{{ sorted_post.id }}">{{ sorted_post.post_title }}</a></h3>
+                        <h4>{{ sorted_post.post_short_description }}</h4>
+                        <h6>{{ sorted_post.post_author }}<br>
+                            Добавлен: {{ sorted_post.post_date }}<br>
+                            Изменен: {{ sorted_post.post_date_update }}<br>
+                        </h6>
+                        {% ratings sorted_post %}
+                        <hr>
+                    </div>
+                {% endfor %}
+            </div>
+        </td>
+        <td style="width: 20%;vertical-align: top;padding-top: 2%;">
+            <div>
+                {% for tag in tags %}
+                    <a href="{% url 'sort_by_tag' tag.id %}" class="btn btn-primary"
+                       style="margin: 2px;">{{ tag.tag_name }}</a>
+                {% endfor %}
+            </div>
+        </td>
+    </table>
 {% endblock %}

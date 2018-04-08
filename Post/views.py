@@ -5,8 +5,8 @@ from django.shortcuts import render, get_object_or_404
 from Post.forms import PostForm
 from Post.models import Post, Comments
 
-
 # Create your views here.
+from Tags.models import Tag
 
 
 def post(request, post_id):
@@ -49,10 +49,21 @@ def create_post(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = Post()
+            post.post_speciality_number = form.cleaned_data['post_speciality_number']
             post.post_short_description = form.cleaned_data['post_short_description']
             post.post_text = form.cleaned_data['post_text']
             post.post_title = form.cleaned_data['post_title']
             post.post_author = request.user
+            post.save()
+            tags = form.cleaned_data['tags']
+            for tag in tags:
+                post.tag_set.add(tag)
+                tag.post_set.add(post)
+            if request.POST['tag'] != '':
+                new_tag, _ = Tag.objects.get_or_create(tag_name=request.POST['tag'])
+                new_tag.save()
+                post.tag_set.add(new_tag)
+                new_tag.post_set.add(post)
             post.save()
             return HttpResponseRedirect('/MyProfile/')
     else:
@@ -63,10 +74,21 @@ def create_post(request):
 def edit_post(request, post_id):
     user = request.user
     post = get_object_or_404(Post, id=post_id)
-    if request.method == 'POST' and user.is_authenticated and post.post_author == user:
-        post.post_title = request.POST['post_title']
-        post.post_text = request.POST['post_text']
-        post.post_short_description = request.POST['post_short_description']
+    form = PostForm(request.POST)
+    if request.method == 'POST' and user.is_authenticated and post.post_author == user and form.is_valid():
+        post.post_speciality_number = form.cleaned_data['post_speciality_number']
+        post.post_short_description = form.cleaned_data['post_short_description']
+        post.post_text = form.cleaned_data['post_text']
+        post.post_title = form.cleaned_data['post_title']
+        tags = form.cleaned_data['tags']
+        for tag in tags:
+            post.tag_set.add(tag)
+            tag.post_set.add(post)
+        if request.POST['tag'] != '':
+            new_tag, _ = Tag.objects.get_or_create(tag_name=request.POST['tag'])
+            new_tag.save()
+            post.tag_set.add(new_tag)
+            new_tag.post_set.add(post)
         form = PostForm(instance=post)
         post.save()
         return render(request, 'home/EditPost.html', {'form': form, 'good_news': 'True'})

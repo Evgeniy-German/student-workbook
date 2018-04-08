@@ -9,7 +9,7 @@
     <hr>
 
     {% for post in posts %}
-        <div style="margin-left: 10%">
+        <div style="margin-left: 5%">
             <form method="post" action="">
                 {% csrf_token %}
                 <button type="submit" id="{{ post.id }}" class="btn btn-danger glyphicon glyphicon-minus"
@@ -22,7 +22,8 @@
             </h3>
             <h4>{{ post.post_short_description }}</h4>
             <h6>{{ post.post_author }}<br>
-                {{ post.post_date }}<br>
+                Добавлен: {{ post.post_date }}<br>
+                Изменен: {{ post.post_date_update }}<br>
             </h6>
             {% ratings post %}
         </div>

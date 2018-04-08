@@ -5,6 +5,7 @@ from django.urls import path, include
 
 from Post import views as post_view
 from . import views
+from Tags import views as tags_view
 
 urlpatterns = [
     path('', views.main_page),
@@ -14,6 +15,7 @@ urlpatterns = [
     path(r'MyProfile/<int:post_id>/edit/', post_view.edit_post),
     path(r'MyProfile/create/', post_view.create_post),
     path(r'add_comment/', post_view.add_comment, name='add_comment'),
+    path(r'tag/<int:tag_value>/', tags_view.show_posts_by_teg, name='sort_by_tag'),
 
     path('oauth/', include('social_django.urls', namespace='social')),
     path('login/', auth_views.login, name='login'),
@@ -24,6 +26,7 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
 
     path(r'ratings/', include('star_ratings.urls', namespace='ratings')),
+
 ]
 
 if settings.DEBUG:
