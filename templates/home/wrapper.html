@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Lectures</title>
     {% load staticfiles %}
+    {% if theme == 'humanitarian' %}
+        <link rel="stylesheet" href="{% static 'humanitarian_theme.css' %}">
+    {% endif %}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-social.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/css/font-awesome.css' %}">
@@ -41,6 +44,9 @@
             <br>
             <li><a href="/" class="btn" style="color: #1ab7ea;">Главная</a></li>
             <br>
+
+            <li><a href="{% url 'math_theme' %}" class="btn" style="color: #1ab7ea;">Математическая тема сайта</a></li>
+            <li><a href="{% url 'humanitarian_theme' %}" class="btn" style="color: #1ab7ea;">Гуманитарная тема сайта</a></li>
             <li><a href="/logout" class="btn" style="color: #1ab7ea;">Выйти из аккаунта</a></li>
         </ul>
     {% endif %}

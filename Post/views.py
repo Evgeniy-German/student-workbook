@@ -21,17 +21,14 @@ def post(request, post_id):
 
 
 def addlike(request, post_id, comment_id):
-    try:
-        user = request.user
-        comment = Comments.objects.get(id=comment_id)
-        if user.is_authenticated:
-            if user in comment.comments_likes.all():
-                comment.comments_likes.remove(user)
-            else:
-                comment.comments_likes.add(user)
-            comment.save()
-    except ObjectDoesNotExist:
-        raise Http404
+    user = request.user
+    comment = get_object_or_404(Comments, id=comment_id)
+    if user.is_authenticated:
+        if user in comment.comments_likes.all():
+            comment.comments_likes.remove(user)
+        else:
+            comment.comments_likes.add(user)
+        comment.save()
     return HttpResponseRedirect('/' + str(post_id))
 
 

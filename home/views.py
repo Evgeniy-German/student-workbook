@@ -60,3 +60,27 @@ def activate(request, uidb64, token):
     else:
         return render_to_response('../templates/registration/registration_response.html',
                                   {'error': 'Activation link is invalid!', 'complete': 'None'})
+
+
+def math_theme(request):
+    user = request.user
+    if user.is_authenticated:
+        request.session['theme'] = 'math'
+        return render(request, 'home/home.html', {'posts': reversed(Post.objects.all().order_by('post_date_update')),
+                                                  'sorted_posts': Post.objects.filter(ratings__isnull=False).order_by(
+                                                      '-ratings__average'),
+                                                  'tags': Tag.objects.all(), 'theme': 'math', })
+    else:
+        return main_page(request)
+
+
+def humanitarian_theme(request):
+    user = request.user
+    if user.is_authenticated:
+        request.session['theme'] = 'humanitarian'
+        return render(request, 'home/home.html', {'posts': reversed(Post.objects.all().order_by('post_date_update')),
+                                                  'sorted_posts': Post.objects.filter(ratings__isnull=False).order_by(
+                                                      '-ratings__average'),
+                                                  'tags': Tag.objects.all(), 'theme': 'humanitarian', })
+    else:
+        return main_page(request)
