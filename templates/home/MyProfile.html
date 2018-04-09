@@ -1,5 +1,6 @@
 {% extends 'home/wrapper.html' %}
 {% load ratings %}
+{% load i18n %}
 
 {% block body %}
     <link rel="stylesheet" href="/static/MyModal.css">
@@ -7,10 +8,6 @@
         <a href="/MyProfile/create/" class="btn btn-default glyphicon glyphicon-pencil"
            style="margin-left:-4% ;background-color: limegreen;margin-top: 2%;"></a>
 
-        {#        <a href="{% url 'show_posts_by_date' %}" class="btn btn-default btn-primary"#}
-        {#           style="margin-left: 2%;margin-top: 2%;"> Отсортировать по дате</a>#}
-        {#        <a href="{% url 'show_posts_by_rating' %}" class="btn btn-default btn-primary"#}
-        {#           style="margin-left: 2%;margin-top: 2%;">Отсортировать по рейтингу</a>#}
 
     </div>
     <hr>
@@ -32,8 +29,8 @@
                         </h3>
                         <h4>{{ post.post_short_description }}</h4>
                         <h6>{{ post.post_author }}<br>
-                            Добавлен: {{ post.post_date }}<br>
-                            Изменен: {{ post.post_date_update }}<br>
+                            {% trans "Добавлен: " %}{{ post.post_date }}<br>
+                            {% trans "Изменен: " %}{{ post.post_date_update }}<br>
                         </h6>
                         {% ratings post %}
                     </div>
@@ -47,16 +44,16 @@
                 {% csrf_token %}
 
                 <label class="radio rad" style="width: 70%; ">
-                    <input name="sort" type="radio" value="date" checked>Отсортировать по дате</input>
+                    <input name="sort" type="radio" value="date" checked>{% trans "Отсортировать по дате" %}</input>
                 </label>
                 <label class="radio rad" style="width: 70%; ">
-                    <input name="sort" type="radio" value="rating">Отсортировать по рейтингу</input>
+                    <input name="sort" type="radio" value="rating">{% trans "Отсортировать по рейтингу" %}</input>
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="inverse" value="true"> В обратном порядке
+                    <input type="checkbox" name="inverse" value="true"> {% trans "В обратном порядке" %}
                 </label>
 
-                <button type="submit" class="btn btn-default btn-primary">Жмякай сюда</button>
+                <button type="submit" class="btn btn-default btn-primary">{% trans "Жмякай сюда" %}</button>
             </form>
 
     </table>

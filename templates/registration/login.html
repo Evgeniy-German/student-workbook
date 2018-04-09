@@ -1,11 +1,12 @@
 {% extends 'home/wrapper.html' %}
+{% load i18n %}
 
 {% block body %}
-    <h2>Войдите в систему</h2>
+    <h2>{% trans "Войдите в систему" %}</h2>
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
-            <label for="id_username" class="col-2"><p>Имя пользователя: </p></label><br>
+            <label for="id_username" class="col-2"><p>{% trans "Имя пользователя: " %}</p></label><br>
             <div class="col-10">
                 <input type="text" style="width: 50%;" class="form-control" id="username" name="username"
                        placeholder="Nickname">
@@ -13,7 +14,7 @@
 
         </div>
         <div class="form-group">
-            <label for="id_password" class="col-2"><p>Пароль: </p></label><br>
+            <label for="id_password" class="col-2"><p>{% trans "Пароль: " %}</p></label><br>
             <div class="col-10">
                 <input type="password" style="width: 50%;" class="form-control" id="password1" name="password"
                        placeholder="Password">

@@ -1,10 +1,12 @@
 {% extends 'home/wrapper.html' %}
 {% load ratings %}
+{% load i18n %}
+
 {% block body %}
     <table width="100%">
         <td style="width: 40%;">
             <div style="margin-left: 5%;">
-                <h2 style="color: mediumpurple;">Все конспекты по тегу <span
+                <h2 style="color: mediumpurple;">{% trans "Все конспекты по тегу " %}<span
                         style="color: #125acd;">{{ tag.tag_name }}</span></h2>
                 {% for post in  posts %}
                     <div>
@@ -12,7 +14,7 @@
                         <h4>{{ post.post_short_description }}</h4>
                         <h6>{{ post.post_author }}<br>
                             {{ post.post_date }}<br>
-                            Изменен: {{ post.post_date_update }}<br>
+                            {% trans "Изменен: " %}{{ post.post_date_update }}<br>
                         </h6>
                         {% ratings post %}
                         <hr>

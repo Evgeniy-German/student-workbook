@@ -1,19 +1,19 @@
 {% extends 'home/wrapper.html' %}
 {% load ratings %}
-
+{% load i18n %}
 
 {% block body %}
     <table width="100%">
         <td style="width: 40%;">
             <div style="margin-left: 5%;">
-                <h2 style="color: mediumpurple;">Все конспекты</h2>
+                <h2 style="color: mediumpurple;">{% trans "Все конспекты" %}</h2>
                 {% for post in  posts %}
                     <div>
                         <h3><a href="/{{ post.id }}">{{ post.post_title }}</a></h3>
                         <h4>{{ post.post_short_description }}</h4>
                         <h6>{{ post.post_author }}<br>
-                            Добавлен: {{ post.post_date }}<br>
-                            Изменен: {{ post.post_date_update }}<br>
+                            {% trans "Добавлен: " %}{{ post.post_date }}<br>
+                            {% trans "Изменен: "%}{{ post.post_date_update }}<br>
                         </h6>
                         {% ratings post %}
                         <hr>
@@ -24,14 +24,14 @@
         </td>
         <td style="width: 40%;">
             <div>
-                <h2 style="color: mediumpurple;">Самые рейтинговые</h2>
+                <h2 style="color: mediumpurple;">{% trans "Самые рейтинговые" %}</h2>
                 {% for sorted_post in sorted_posts %}
                     <div>
                         <h3><a href="/{{ sorted_post.id }}">{{ sorted_post.post_title }}</a></h3>
                         <h4>{{ sorted_post.post_short_description }}</h4>
                         <h6>{{ sorted_post.post_author }}<br>
-                            Добавлен: {{ sorted_post.post_date }}<br>
-                            Изменен: {{ sorted_post.post_date_update }}<br>
+                            {% trans "Добавлен: " %}{{ sorted_post.post_date }}<br>
+                            {% trans "Изменен: " %}{{ sorted_post.post_date_update }}<br>
                         </h6>
                         {% ratings sorted_post %}
                         <hr>
@@ -41,7 +41,7 @@
         </td>
         <td style="width: 20%;vertical-align: top;">
             <div>
-            <h2 style="color: mediumpurple;">Теги</h2>
+            <h2 style="color: mediumpurple;">{% trans "Теги" %}</h2>
                 {% for tag in tags %}
                     <a href="{% url 'sort_by_tag' tag.id %}" class="btn btn-primary"
                        style="margin: 2px;">{{ tag.tag_name }}</a>

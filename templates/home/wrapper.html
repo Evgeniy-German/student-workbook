@@ -21,6 +21,7 @@
 
 </head>
 <body style="padding-left: 20%;">
+{% load i18n %}
 <div style=" position: fixed;
     top: 0;
     left: 0;
@@ -28,13 +29,29 @@
     height: 100%;
     background: #4e555b;">
 
+    <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+        <input name="next" type="hidden" value="{{ redirect_to }}"/>
+        <select name="language">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+                        selected="selected"{% endif %}>
+                    {{ language.name_local }} ({{ language.code }})
+                </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="{% trans 'Change' %}"/>
+    </form>
+
     {% if not user.is_authenticated %}
         <ul class="nav nav-pills nav-stacked">
-            <li><a href="/" class="btn" style="color: #1ab7ea;">Главная</a></li>
+            <li><a href="/" class="btn" style="color: #1ab7ea;">{% trans "Главная" %}</a></li>
             <br>
-            <li><a href="/signup" class="btn" style="color: #1ab7ea;">Регистрация</a></li>
+            <li><a href="/signup" class="btn" style="color: #1ab7ea;">{% trans "Регистрация" %}</a></li>
             <br>
-            <li><a href="/login" class="btn" style="color: #1ab7ea;">Войти</a></li>
+            <li><a href="/login" class="btn" style="color: #1ab7ea;">{% trans "Войти" %}</a></li>
         </ul>
     {% elif user.is_authenticated %}
         <ul class="nav nav-pills nav-stacked">
@@ -42,12 +59,15 @@
                                           style="width: 35%;margin-left: 33%;margin-top: 5%;"></a></li>
             <li><a href="/MyProfile" class="btn" style="color: orange">{{ user.username }}</a></li>
             <br>
-            <li><a href="/" class="btn" style="color: #1ab7ea;">Главная</a></li>
+            <li><a href="/" class="btn" style="color: #1ab7ea;">{% trans 'Главная' %}</a></li>
             <br>
 
-            <li><a href="{% url 'math_theme' %}" class="btn" style="color: #1ab7ea;">Математическая тема сайта</a></li>
-            <li><a href="{% url 'humanitarian_theme' %}" class="btn" style="color: #1ab7ea;">Гуманитарная тема сайта</a></li>
-            <li><a href="/logout" class="btn" style="color: #1ab7ea;">Выйти из аккаунта</a></li>
+            <li><a href="{% url 'math_theme' %}" class="btn"
+                   style="color: #1ab7ea;">{% trans 'Математическая тема сайта' %}</a></li>
+            <li><a href="{% url 'humanitarian_theme' %}" class="btn"
+                   style="color: #1ab7ea;">{% trans "Гуманитарная тема сайта" %}</a>
+            </li>
+            <li><a href="/logout" class="btn" style="color: #1ab7ea;">{% trans "Выйти из аккаунта" %}</a></li>
         </ul>
     {% endif %}
 </div>

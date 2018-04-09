@@ -19,6 +19,7 @@ urlpatterns = [
     path('sort/', post_view.sort, name='sort'),
     path('math_theme/', home_view.math_theme, name='math_theme'),
     path('humanitarian_theme/', home_view.humanitarian_theme, name='humanitarian_theme'),
+    path('i18n/', include('django.conf.urls.i18n')),
 
     path('oauth/', include('social_django.urls', namespace='social')),
     path('login/', auth_views.login, name='login'),

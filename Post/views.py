@@ -1,11 +1,9 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils.datastructures import MultiValueDictKeyError
 
 from Post.forms import PostForm
 from Post.models import Post, Comments
-
 # Create your views here.
 from Tags.models import Tag
 
@@ -14,10 +12,15 @@ def post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     comments = Comments.objects.filter(comments_post_id=post_id)
     form = PostForm(instance=post)
-    return render(request, 'home/post.html', {'post': post,
-                                              'comments': comments,
-                                              'form': form}
-                  )
+    d = {'post': post,
+         'comments': comments,
+         'form': form,
+         }
+    try:
+        d['theme'] = request.session['theme']
+    except KeyError:
+        pass
+    return render(request, 'home/post.html', d)
 
 
 def addlike(request, post_id, comment_id):
@@ -37,7 +40,12 @@ def my_profile(request):
         return delete_post(request)
     elif request.user.is_authenticated:
         posts = Post.objects.filter(post_author=request.user)
-        return render(request, 'home/MyProfile.html', {'posts': reversed(posts)})
+        d = {'posts': reversed(posts), }
+        try:
+            d['theme'] = request.session['theme']
+        except KeyError:
+            pass
+        return render(request, 'home/MyProfile.html', d)
     else:
         return HttpResponseRedirect('/')
 
@@ -66,7 +74,12 @@ def create_post(request):
             return HttpResponseRedirect('/MyProfile/')
     else:
         form = PostForm()
-    return render(request, 'home/EditPost.html', {'form': form})
+    d = {'form': form, }
+    try:
+        d['theme'] = request.session['theme']
+    except KeyError:
+        pass
+    return render(request, 'home/EditPost.html', d)
 
 
 def edit_post(request, post_id):
@@ -89,7 +102,8 @@ def edit_post(request, post_id):
             new_tag.post_set.add(post)
         form = PostForm(instance=post)
         post.save()
-        return render(request, 'home/EditPost.html', {'form': form, 'good_news': 'True'})
+        return render(request, 'home/EditPost.html',
+                      {'form': form, 'good_news': 'True', })
     elif user.is_authenticated:
         form = PostForm(instance=post)
         return render(request, 'home/EditPost.html', {'form': form})
@@ -132,15 +146,6 @@ def add_comment(request):
     else:
         return JsonResponse({'text': '', })
 
-
-# def show_posts_by_rating(request):
-#     return render(request, 'home/MyProfile.html', {'posts': Post.objects.filter(ratings__isnull=False).order_by(
-#         '-ratings__average').filter(post_author=request.user), })
-#
-#
-# def show_posts_by_date(request):
-#     return render(request, 'home/MyProfile.html',
-#                   {'posts': Post.objects.all().order_by('post_date').filter(post_author=request.user), })
 
 def sort(request):
     if request.method == 'POST':

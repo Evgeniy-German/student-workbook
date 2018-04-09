@@ -6,16 +6,21 @@ from django.shortcuts import render, render_to_response
 from django.template.loader import render_to_string
 
 from Post.models import Post
+from Tags.models import Tag
 from .forms import SignupForm
 from .tokens import account_activation_token
-from Tags.models import Tag
 
 
 def main_page(request):
-    return render(request, 'home/home.html', {'posts': reversed(Post.objects.all().order_by('post_date_update')),
-                                              'sorted_posts': Post.objects.filter(ratings__isnull=False).order_by(
-                                                  '-ratings__average'),
-                                              'tags': Tag.objects.all()})
+    d = {'posts': reversed(Post.objects.all().order_by('post_date_update')),
+         'sorted_posts': Post.objects.filter(ratings__isnull=False).order_by(
+             '-ratings__average'),
+         'tags': Tag.objects.all(), }
+    try:
+        d['theme'] = request.session['theme']
+    except KeyError:
+        pass
+    return render(request, 'home/home.html', d)
 
 
 def signup(request):
